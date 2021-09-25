@@ -4,10 +4,9 @@ const twilio = require('twilio');
 const setup = require('../data/setup');
 const request = require('supertest');
 const app = require('../lib/app');
-// import pool from '../lib/utils/pool.js';
-// import setup from '../data/setup.js';
-// import request from 'supertest';
-// import app from '../lib/app.js';
+const { fetchQuotes } = require('../lib/utils/fetchQuote');
+// const fetchQuotes = require('../lib/utils/fetchQuote');
+
 
 jest.mock('twilio', () => () => ({
   messages: {
@@ -20,14 +19,26 @@ describe('Inspiration quotes service', () => {
     return setup(pool);
   });
 
-  it.only('creates new inspiration quote in database', () => {
+  it('gets quote from api', () => {
     return request(app)
-      .post('/api/v1/quotes')
-      .send({ text: 'x' })
+      .get('/api/v1/quotes')
       .then(res => {
         expect(res.body).toEqual({
-          id:'2',
-          text: 'y'
+          quote: expect.any(String),
+          author: expect.any(String)
+        });
+      });
+  });
+
+  it('creates new inspiration quote in database', () => {
+    return request(app)
+      .post('/api/v1/quotes/2')
+      // eslint-disable-next-line quotes
+      .send(fetchQuotes())
+      .then(res => {
+        expect(res.body).toEqual({
+          quote: expect.any(String),
+          author: expect.any(String)
         });
       });
   });
