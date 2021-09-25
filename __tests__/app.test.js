@@ -32,7 +32,7 @@ describe('Inspiration quotes service', () => {
 
   it('creates new inspiration quote in database', () => {
     return request(app)
-      .post('/api/v1/quotes/2')
+      .post('/api/v1/quotes')
       // eslint-disable-next-line quotes
       .send({
         author: 'Hal Elrond',
@@ -44,6 +44,23 @@ describe('Inspiration quotes service', () => {
           author: expect.any(String)
         }]);
       });
+  });
+
+  it('gets all quotes from SQL DB', () => {
+
+    return request(app)
+      .get('/api/v1/quotes')
+      .then(res => {
+        expect(res.body).toEqual({
+          quote: expect.any(String),
+          author: expect.any(String)
+        });
+      });
+  });
+
+  it('deletes quote from SQL DB', async() => {
+    const res = await res(app).delete('/api/v1/quotes/1');
+    expect(res.body).toEqual({});
   });
 
   afterAll(() => {
