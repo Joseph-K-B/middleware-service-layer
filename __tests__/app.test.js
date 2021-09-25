@@ -34,12 +34,15 @@ describe('Inspiration quotes service', () => {
     return request(app)
       .post('/api/v1/quotes/2')
       // eslint-disable-next-line quotes
-      .send(fetchQuotes())
+      .send({
+        author: 'Hal Elrond',
+        quote: 'Your entire life changes the day ou decide you will no longer accept mediocrity for yourself'
+      })
       .then(res => {
-        expect(res.body).toEqual({
+        expect(res.body).toEqual([{
           quote: expect.any(String),
           author: expect.any(String)
-        });
+        }]);
       });
   });
 
