@@ -4,7 +4,7 @@ const twilio = require('twilio');
 const setup = require('../data/setup');
 const request = require('supertest');
 const app = require('../lib/app');
-const { fetchQuotes } = require('../lib/utils/fetchQuote');
+// const { fetchQuotes } = require('../lib/utils/fetchQuote');
 // const fetchQuotes = require('../lib/utils/fetchQuote');
 
 
