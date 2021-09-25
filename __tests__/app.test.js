@@ -59,7 +59,7 @@ describe('Inspiration quotes service', () => {
   });
 
   it('deletes quote from SQL DB', async() => {
-    const res = await res(app).delete('/api/v1/quotes/1');
+    const res = await request(app).delete('/api/v1/quotes/1');
     expect(res.body).toEqual({});
   });
 
