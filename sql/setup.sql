@@ -6,6 +6,6 @@ CREATE TABLE quotes (
   author VARCHAR (512)
 );
 
-INSERT INTO quotes (quote, author) 
-  VALUES ('Whether you think you can or you think you cant, youre right', 'Henry Ford')
+-- INSERT INTO quotes (quote, author) 
+--   VALUES ('Whether you think you can or you think you cant, youre right', 'Henry Ford')
   
