@@ -43,7 +43,7 @@ describe('Inspiration quotes service', () => {
       .then(res => {
         expect(res.body).toEqual(
           {
-            id: expect.any(String),
+            // id: expect.any(String),
             quote: expect.any(String),
             author: expect.any(String)
           });
@@ -70,38 +70,38 @@ describe('Inspiration quotes service', () => {
         author: 'Roald Dahl' 
       });
     return request(app)
-      .get('/api/v1/quotes/1')
+      .get('/api/v1/quotes/2')
       .then(res =>
       {
         expect(res.body).toEqual(quotes);
       });
   });
 
-  // it('updates or creates quote by id using put', async() =>
-  // {
-  //   const quotes = await Quote.insert(
-  //     {
-  //       quote: 'Whether you think you can or you think you can\'t you\'re right',
-  //       author: 'Henry Fjord'
-  //     });
-  //   console.log(quotes);
-  //   return request(app)
-  //     .put('/api/vq/quotes/1')
-  //     .send(
-  //       { 
-  //         quote: 'Whether you think you can or you think you can\'t you\'re right',
-  //         author: 'Henry Ford' 
-  //       })
-  //     .then((res) =>
-  //     {
-  //       expect(res.body).toEqual(
-  //         {
-  //           quote: 'Whether you think you can or you think you can\'t you\'re right',
-  //           author: 'Henry Ford'
-  //         }
-  //       );
-  //     });
-  // });
+  it('updates or creates quote by id using put', async() =>
+  {
+    // const quotes = await Quote.insert(
+    //   {
+    //     quote: 'Whether you think you can or you think you can\'t you\'re right',
+    //     author: 'Henry Fjord'
+    //   });
+    // console.log(quotes);
+    return request(app)
+      .patch('/api/v1/quotes/1')
+      .send(
+        { 
+          author: 'Henry Ford', 
+          quote: 'Whether you think you can or you think you can\'t you\'re right'
+        })
+      .then((res) =>
+      {
+        expect(res.body).toEqual(
+          {
+            author: 'Henry Ford',
+            quote: 'Whether you think you can or you think you can\'t you\'re right'
+          }
+        );
+      });
+  });
 
 
 
