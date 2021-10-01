@@ -1,13 +1,11 @@
 const pool = require('../lib/utils/pool');
-// eslint-disable-next-line no-unused-vars
-const twilio = require('twilio');
+// const twilio = require('twilio');
 const setup = require('../data/setup');
 const request = require('supertest');
 const app = require('../lib/app');
-const { fetchQuotes } = require('../lib/utils/fetchQuote');
-const Quote = require('../lib/models/Quote');
 // const { fetchQuotes } = require('../lib/utils/fetchQuote');
-// const fetchQuotes = require('../lib/utils/fetchQuote');
+const Quote = require('../lib/models/Quote');
+
 
 
 jest.mock('twilio', () => () => ({
@@ -79,32 +77,37 @@ describe('Inspiration quotes service', () => {
       });
   });
 
-  it('updates or creates quote by id using put', async() =>
+  // it('updates or creates quote by id using put', async() =>
+  // {
+  //   const quotes = await Quote.insert(
+  //     {
+  //       quote: 'Whether you think you can or you think you can\'t you\'re right',
+  //       author: 'Henry Fjord'
+  //     });
+  //   console.log(quotes);
+  //   return request(app)
+  //     .put('/api/vq/quotes/1')
+  //     .send(
+  //       { 
+  //         quote: 'Whether you think you can or you think you can\'t you\'re right',
+  //         author: 'Henry Ford' 
+  //       })
+  //     .then((res) =>
+  //     {
+  //       expect(res.body).toEqual(
+  //         {
+  //           quote: 'Whether you think you can or you think you can\'t you\'re right',
+  //           author: 'Henry Ford'
+  //         }
+  //       );
+  //     });
+  // });
+
+
+
+
+  it('deletes quote from SQL DB', async() => 
   {
-    const quotes = await Quote.insert(
-      {
-        quote: 'Whether you think you can or you think you can\'t you\'re right',
-        author: 'Henry Fjord'
-      });
-    console.log(quotes);
-    return request(app)
-      .put('/api/vq/quotes/1')
-      .send({ author: 'Henry Ford' })
-      .then((res) =>
-      {
-        expect(res.body).toEqual(
-          {
-            quote: 'Whether you think you can or you think you can\'t you\'re right',
-            author: 'Henry Ford'
-          }
-        );
-      });
-  });
-
-
-
-
-  it('deletes quote from SQL DB', async() => {
     const res = await request(app)
       .delete('/api/v1/quotes/1');
     expect(res.body).toEqual({});
