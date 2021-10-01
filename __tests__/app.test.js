@@ -79,6 +79,31 @@ describe('Inspiration quotes service', () => {
       });
   });
 
+  it('updates or creates quote by id using put', async() =>
+  {
+    const quotes = await Quote.insert(
+      {
+        quote: 'Whether you think you can or you think you can\'t you\'re right',
+        author: 'Henry Fjord'
+      });
+    console.log(quotes);
+    return request(app)
+      .put('/api/vq/quotes/1')
+      .send({ author: 'Henry Ford' })
+      .then((res) =>
+      {
+        expect(res.body).toEqual(
+          {
+            quote: 'Whether you think you can or you think you can\'t you\'re right',
+            author: 'Henry Ford'
+          }
+        );
+      });
+  });
+
+
+
+
   it('deletes quote from SQL DB', async() => {
     const res = await request(app)
       .delete('/api/v1/quotes/1');
